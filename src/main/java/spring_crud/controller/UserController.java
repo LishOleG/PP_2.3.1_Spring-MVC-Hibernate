@@ -43,7 +43,8 @@ public class UserController {
     }
 
     @PostMapping
-    public String create(@ModelAttribute("addUser") @Valid User user, BindingResult bindingResult) {
+    public String create(@ModelAttribute("addUser") @Valid User user,
+                         BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return "new";
         }
@@ -58,7 +59,9 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @PathVariable("id") int id) {
+    public String update(@ModelAttribute("user") @Valid User user,
+                         BindingResult bindingResult,
+                         @PathVariable("id") int id) {
         if(bindingResult.hasErrors()){
             return "/edit";
         }
