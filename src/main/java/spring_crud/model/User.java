@@ -1,17 +1,24 @@
 package spring_crud.model;
+
+
+//import org.hibernate.annotations.Table;
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Objects;
-import javax.persistence.*;
-import javax.validation.constraints.*;
-
 
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,17 +26,17 @@ public class User {
 
     @NotEmpty(message = "Name not be empty")
     @Size(min = 2, max = 30, message = "Name size - 2 and 30 characters")
-    @Column(name = "name")
+    @Column(name = "NAME")
     private String name;
 
     @Min(value = 1, message = "Age not be 0")
     @Max(value = 200, message = "Hello alien")
-    @Column(name = "age")
+    @Column(name = "AGE")
     private int age;
 
     @NotEmpty(message = "Email not be empty")
-    @Email (message = "Incorrectly filled out form")
-    @Column(name = "email")
+    @Email(message = "Incorrectly filled out form")
+    @Column(name = "EMAIL")
     private String email;
 
     public User() {
@@ -75,6 +82,23 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id
+                && Objects.equals(name, user.name)
+                && Objects.equals(age, user.age)
+                && Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age, email);
+    }
+
+
+    @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
@@ -82,4 +106,8 @@ public class User {
                 ", email='" + email + '\'' +
                 '}';
     }
+
 }
+
+
+
